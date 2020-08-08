@@ -18,10 +18,14 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 regTheta = theta;
 regTheta(1) = 0;
+
 [J, grad] = costFunction(theta, X, y);
+
 J = J + lambda / (2*m) * regTheta' * regTheta;
+
+temp = grad(1);
 grad = grad + lambda/m * theta; 
-grad(1) = 1/m * X(:, 1)' * (sigmoid(X * theta) - y);
+grad(1) = temp;
 
 
 
