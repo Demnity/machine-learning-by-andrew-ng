@@ -62,22 +62,20 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%%Forward prop
+X = [ones(size(X,1), 1), X];
+a_1 = sigmoid(X * Theta1');
+a_1 = [ones(size(a_1,1), 1) a_1];
+a_2 = sigmoid(a_1 * Theta2');
 
+%%Recode label to big Y array
+Y = zeros(m, num_labels);
+for i = 1:m
+	Y(i, y(i)) = 1;
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%%Cost function (vectorized)
+J = -1/m * sum(sum(Y .* log(a_2) + (1 - Y) .* (log(1 - a_2)))); 
 
 
 % -------------------------------------------------------------
