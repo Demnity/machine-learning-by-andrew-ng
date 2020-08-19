@@ -64,9 +64,9 @@ Theta2_grad = zeros(size(Theta2));
 
 %%Forward prop
 X = [ones(size(X,1), 1), X];
-a_1 = sigmoid(X * Theta1');
-a_1 = [ones(size(a_1,1), 1) a_1];
-a_2 = sigmoid(a_1 * Theta2');
+a_2 = sigmoid(X * Theta1');
+a_2 = [ones(size(a_2,1), 1) a_2];
+a_3 = sigmoid(a_2 * Theta2');
 
 %%Recode label to big Y array
 Y = zeros(m, num_labels);
@@ -75,12 +75,14 @@ for i = 1:m
 end
 
 %%Cost function (vectorized)
-J = -1/m * sum(sum(Y .* log(a_2) + (1 - Y) .* (log(1 - a_2)))); 
+J = -1/m * sum(sum(Y .* log(a_3) + (1 - Y) .* (log(1 - a_3)))); 
 
-
-% -------------------------------------------------------------
 %%Cost function regularized
 J = J + lambda/(2*m) * (sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2)));
+
+% -------------------------------------------------------------
+%%Back prop
+
 
 % =========================================================================
 
