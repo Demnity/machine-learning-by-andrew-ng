@@ -82,7 +82,20 @@ J = J + lambda/(2*m) * (sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end)
 
 % -------------------------------------------------------------
 %%Back prop
+error_total = X - Y;
+Delta1 = zeros(size(Theta1));
+Delta2 = zeros(size(Theta2));
+D1 = zeros(size(Theta1));
+D2 = zeros(size(Theta2));
 
+for t = 1:m 
+	error_3 = (error_total(1, :))';
+	error_2 = (Theta2' * error_3) .* a_2 .* (1 - a_2);
+	Delta2 = Delta2 + error_3(2 : end) * a_2';
+	Delta1 = Delta1 + error_2(2 : end) * a_1';
+	D2 = 1/m * Delta2;
+	D1 = 1/m * Delta1;
+end
 
 % =========================================================================
 
