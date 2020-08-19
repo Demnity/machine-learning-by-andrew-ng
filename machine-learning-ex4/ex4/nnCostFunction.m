@@ -85,16 +85,14 @@ J = J + lambda/(2*m) * (sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end)
 error_total = a_3 - Y;
 Delta1 = zeros(size(Theta1));
 Delta2 = zeros(size(Theta2));
-D1 = zeros(size(Theta1));
-D2 = zeros(size(Theta2));
 
 for t = 1:m 
 	error_3 = (error_total(t, :))';
 	error_2 = (Theta2' * error_3) .* a_2(t, :)'  .* (1 - a_2(t, :))';
 	Delta2 = Delta2 + error_3 * a_2(t, :);
 	Delta1 = Delta1 + error_2(2 : end) * X(t, :);
-	D2 = 1/m * Delta2;
-	D1 = 1/m * Delta1;
+	Theta2_grad = 1/m * Delta2;
+	Theta1_grad = 1/m * Delta1;
 end
 
 % =========================================================================
