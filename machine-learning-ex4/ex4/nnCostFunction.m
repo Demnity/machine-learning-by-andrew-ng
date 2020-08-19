@@ -93,6 +93,8 @@ for t = 1:m
 	Delta1 = Delta1 + error_2(2 : end) * X(t, :);
 	Theta2_grad = 1/m * Delta2;
 	Theta1_grad = 1/m * Delta1;
+	Theta2_grad(:, 2 : end) = Theta2_grad(:, 2 : end) + lambda/m * Theta2(:, 2 : end);
+        Theta1_grad(:, 2 : end) = Theta1_grad(:, 2 : end) + lambda/m * Theta1(:, 2 : end);
 end
 
 % =========================================================================
