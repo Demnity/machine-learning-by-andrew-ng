@@ -23,28 +23,41 @@ sigma = 0.01;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
-min_error = 100;
-fprintf('Selecting C and sigma:\nC\tsigma\tError validation\n');
-for i = 1 : size(steps)
-	C_temp = steps(i);
-	for j = 1 : size(steps)
-		sigma_temp = steps(j);
-		model = svmTrain(X, y, C_temp, @(x1,x2) gaussianKernel(x1, x2, sigma_temp));
-		predictions = svmPredict(model, Xval);
-		error_validation = mean(double(predictions ~= yval));
-	
-		if(error_validation < min_error)
-			C = C_temp;
-			sigma = sigma_temp;
-			min_error = error_validation;
-		endif
 
-	end
-end
+%%Code for selecting best C and sigma (run once only)
 
-fprintf('%f\t%f\t%f\n', C, sigma, error_validation);
+% %Set min_error to find smallest error (value won't exceed 1);
+% min_error = 100;
+% fprintf('Selecting C and sigma:\nC\tsigma\tError validation\n');
+%
+% %Loop for every value of C and sigma
+% for i = 1 : size(steps)
+%	C_temp = steps(i);
+%	for j = 1 : size(steps)
+%		sigma_temp = steps(j);
+%		
+%		%Training model with different C's
+%		model = svmTrain(X, y, C_temp, @(x1,x2) gaussianKernel(x1, x2, sigma_temp));
+%		
+%		%Predict the output of validation set using trained model from train set
+%		predictions = svmPredict(model, Xval);
+%		error_validation = mean(double(predictions ~= yval));
+%		
+%		%Selecting lowest error
+%		if(error_validation < min_error)
+%			C = C_temp;
+%			sigma = sigma_temp;
+%			min_error = error_validation;
+%		endif
+%
+%	end
+% end
+%
+% fprintf('%f\t%f\t%f\n', C, sigma, error_validation);
 
-
+% Found it :)
+C = 1;
+sigma = 0.1;
 
 % =========================================================================
 
